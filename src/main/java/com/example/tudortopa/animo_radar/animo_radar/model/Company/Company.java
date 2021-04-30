@@ -3,9 +3,11 @@ package com.example.tudortopa.animo_radar.animo_radar.model.Company;
 import com.example.tudortopa.animo_radar.animo_radar.model.Projects.Project;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +28,9 @@ public class Company {
     @Column(name = "foundationDate")
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date foundationDate;
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company",
+               orphanRemoval = true,
+               fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Project>  projects;
 
@@ -64,11 +68,11 @@ public class Company {
     public void setFoundationDate(Date foudnationDate) {
         this.foundationDate = foudnationDate;
     }
-
+    @JsonProperty
     public Set<Project> getProjects() {
         return projects;
     }
-
+    @JsonIgnore
     public void setProjects(Set<Project> projects) {
         this.projects = projects;
     }
