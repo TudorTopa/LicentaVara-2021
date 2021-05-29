@@ -1,10 +1,12 @@
 package com.example.tudortopa.animo_radar.animo_radar.controller;
 
 import com.example.tudortopa.animo_radar.animo_radar.model.Company.Company;
+import com.example.tudortopa.animo_radar.animo_radar.model.Projects.Project;
 import com.example.tudortopa.animo_radar.animo_radar.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api/companies")
+@CrossOrigin(origins = "http://localhost:3000/companies")
 public class CompanyController {
     @Autowired
     CompanyRepository companyRepository;
@@ -60,5 +64,14 @@ public class CompanyController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+    @GetMapping("/{id}/projects")
+    public ResponseEntity<List<Project>> getCompanyProjects(@PathVariable("id") long id){
+        List<Project> projects = new ArrayList<>();
+        companyRepository.findCompanyProjects(id).forEach(projects::add);
+        if (projects.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(projects, HttpStatus.OK);
     }
 }

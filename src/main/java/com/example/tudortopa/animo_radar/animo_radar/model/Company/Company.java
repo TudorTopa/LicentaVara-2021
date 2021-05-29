@@ -1,5 +1,6 @@
 package com.example.tudortopa.animo_radar.animo_radar.model.Company;
 
+import com.example.tudortopa.animo_radar.animo_radar.model.Employee.Employee;
 import com.example.tudortopa.animo_radar.animo_radar.model.Projects.Project;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -20,22 +21,31 @@ import java.util.Set;
 @Entity
 @Table(name = "Companies")
 public class Company {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long companyId;
+
     @Column(name = "companyName", unique = true, nullable = false)
     private String companyName;
+
     @Column(name = "foundationDate")
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date foundationDate;
+
     @OneToMany(mappedBy = "company",
                orphanRemoval = true,
                fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Project>  projects;
 
-    public Company(){
+    @OneToMany(mappedBy = "company",
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Employee> employees  ;
 
+    public Company(){
     }
 
 

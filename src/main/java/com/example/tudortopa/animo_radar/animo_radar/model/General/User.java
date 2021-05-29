@@ -7,17 +7,32 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.GeneratedValue;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
 @Table(name = "Users")
 public class User {
 
+    public User(@JsonProperty("userName") String userName, @JsonProperty("firstName") String firstName, @JsonProperty("lastName") String lastName, @JsonProperty("password") String password, @NonNull Date registrationDate) {
+        this.userName = userName;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.password = password;
+    }
+    public User(String username, String password) {
+        this.userName = username;
+        this.password = password;
+    }
+
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
-    private long userId;
+    private long Id;
 
     @Column( unique = true,name = "userName")
     private String userName;
@@ -34,22 +49,29 @@ public class User {
     public User(){
     }
 
-
-
-    public User(long userId, String userName, String firstName, String lastName, String password) {
-        this.userId = userId;
+    public User(long Id, String userName, String firstName, String lastName, String password) {
+        this.Id = Id;
         this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.password = password;
     }
 
-    public long getUserId() {
-        return userId;
+    @ManyToMany
+    @JoinTable(
+            name = "users_roles",
+            joinColumns = @JoinColumn(
+                    name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(
+                    name = "role_id", referencedColumnName = "id"))
+    private Collection<Role> roles;
+
+    public long getId() {
+        return Id;
     }
 
-    public void setUserId(long userId) {
-        this.userId = userId;
+    public void setId(long userId) {
+        this.Id = userId;
     }
 
     @NonNull
@@ -88,10 +110,11 @@ public class User {
         this.password = password;
     }
 
-    public User(@JsonProperty("userName") String userName, @JsonProperty("firstName") String firstName, @JsonProperty("lastName") String lastName, @JsonProperty("password") String password, @NonNull Date registrationDate) {
-        this.userName = userName;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.password = password;
+    public Collection<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Collection<Role> roles) {
+        this.roles = roles;
     }
 }

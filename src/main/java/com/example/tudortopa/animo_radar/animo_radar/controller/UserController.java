@@ -6,6 +6,7 @@ import com.example.tudortopa.animo_radar.animo_radar.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,7 +37,8 @@ public class UserController {
 
     @GetMapping("/{userName}")
     public ResponseEntity<User> getUserByUserName(@PathVariable("userName") String userName) {
-        User user = userRepository.findUserByUserName(userName);
+        User user = userRepository.findUserByUserName(userName).
+                orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + userName));
         if (user.equals(null)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
@@ -47,7 +49,7 @@ public class UserController {
     public ResponseEntity<User> createUser(@RequestBody User user) {
         try {
             User _user = userRepository
-                    .save(new User(user.getUserId(), user.getUserName(), user.getFirstName(), user.getLastName(), user.getPassword()));
+                    .save(new User(user.getId(), user.getUserName(), user.getFirstName(), user.getLastName(), user.getPassword()));
             return new ResponseEntity<>(_user, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,9 +42,18 @@ public class ProjectController {
                     .save(new Project(project.getName(), project.getCompany()));
             return new ResponseEntity<>(_project, HttpStatus.CREATED);
         } catch (Exception e) {
+            e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
+    @GetMapping("/technology/{id}")
+    public ResponseEntity<List<Project>> findProjectsByTechnology(@PathVariable("id") Long technologyId) {
+        List<Project> projects = new ArrayList<>();
+        projects.addAll(projectRepository.findProjectsByTechnologyId(technologyId));
+        if (projects.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(projects, HttpStatus.OK);
+    }
 
 }
