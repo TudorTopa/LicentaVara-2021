@@ -33,7 +33,7 @@ public interface EmployeeTechnologiesRepository extends JpaRepository<EmployeeTe
             "JOIN Technologies t ON et.employeeTechnologyKey.technologyId = t.technologyId " +
             "JOIN Employee e ON e.employeeId = et.employeeTechnologyKey.employeeId" +
             " WHERE et.employeeTechnologyKey.technologyId = ?1 AND e.company.companyId = ?2 ")
-    List<Object> getEmployeeTechnologiesForEmployeeAndCompany(Long technologyId,Long companyId);
+    List<Object> getEmployeeTechnologiesForEmployeeAndCompany(Long technologyId, Long companyId);
 
     @Query("SELECT et from EmployeeTechnologies et JOIN Employee e ON " +
             "et.employeeTechnologyKey.employeeId = e.employeeId WHERE e.company.companyId = ?1")

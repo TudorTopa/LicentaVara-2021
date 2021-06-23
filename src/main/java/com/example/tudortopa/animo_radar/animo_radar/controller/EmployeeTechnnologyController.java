@@ -103,7 +103,7 @@ public class EmployeeTechnnologyController {
     @GetMapping("/technologiesByEmployeeAndCompany/technology/{technologyId}/company/{companyId}")
     public ResponseEntity<List<Object>> getTechnologiesForEmployeeAndCompany(@PathVariable("technologyId") Long technologyId, @PathVariable("companyId") Long companyId) {
         List<Object> technologies = new ArrayList<>();
-        employeeTechnologiesRepository.getEmployeeTechnologiesForEmployeeAndCompany(technologyId,companyId).forEach(technologies::add);
+        employeeTechnologiesRepository.getEmployeeTechnologiesForEmployeeAndCompany(technologyId, companyId).forEach(technologies::add);
         if (technologies.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
@@ -111,7 +111,7 @@ public class EmployeeTechnnologyController {
     }
 
     @GetMapping("/employees/company/{companyId}")
-    public  ResponseEntity<List<EmployeeTechnologies>> getAllEmployeesDetailsByCompany (@PathVariable("companyId") Long companyId){
+    public ResponseEntity<List<EmployeeTechnologies>> getAllEmployeesDetailsByCompany(@PathVariable("companyId") Long companyId) {
         List<EmployeeTechnologies> employees = new ArrayList<>();
         employeeTechnologiesRepository.getEmployeeTechnologiesByCompany(companyId).forEach(employees::add);
         if (employees.isEmpty()) {

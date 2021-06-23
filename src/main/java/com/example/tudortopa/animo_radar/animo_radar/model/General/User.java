@@ -25,16 +25,17 @@ public class User {
         this.lastName = lastName;
         this.password = password;
     }
+
     public User(String username, String password) {
         this.userName = username;
         this.password = password;
     }
 
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long Id;
 
-    @Column( unique = true,name = "userName")
+    @Column(unique = true, name = "userName")
     private String userName;
 
     @Column(name = "firstName")
@@ -46,7 +47,7 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    public User(){
+    public User() {
     }
 
     public User(long Id, String userName, String firstName, String lastName, String password) {

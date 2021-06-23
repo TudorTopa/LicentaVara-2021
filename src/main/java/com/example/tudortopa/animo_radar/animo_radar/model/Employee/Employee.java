@@ -41,19 +41,19 @@ public class Employee {
     private Company company;
 
     @Column(columnDefinition = "DATE DEFAULT CURRENT_DATE")
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date availableFrom;
 
     @NonNull
     @Column(columnDefinition = "boolean default true")
-    private boolean isAvailable = true ;
+    private boolean isAvailable = true;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 20,columnDefinition="VARCHAR(20) default 'JUNIOR'")
+    @Column(length = 20, columnDefinition = "VARCHAR(20) default 'JUNIOR'")
     private ELevel employeeLevel;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 20,columnDefinition="VARCHAR(20) default 'DEVELOPER'")
+    @Column(length = 20, columnDefinition = "VARCHAR(20) default 'DEVELOPER'")
     private EPosition employeePosition;
 
     @OneToMany(mappedBy = "employee")
@@ -61,7 +61,7 @@ public class Employee {
 
 
     @OneToMany(mappedBy = "employeeTechnologyKey.employeeId")
-    List<EmployeeTechnologies> employeeTechnologies ;
+    List<EmployeeTechnologies> employeeTechnologies;
 
 
     public Employee(@NonNull String firstName, @NotNull String lastName, @NonNull Company company, ELevel employeeLevel, EPosition employeePosition) {
@@ -71,7 +71,8 @@ public class Employee {
         this.employeeLevel = employeeLevel;
         this.employeePosition = employeePosition;
     }
-    public Employee(){
+
+    public Employee() {
 
     }
 

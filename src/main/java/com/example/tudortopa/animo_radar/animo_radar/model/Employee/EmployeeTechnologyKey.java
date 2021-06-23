@@ -10,14 +10,15 @@ public class EmployeeTechnologyKey implements Serializable {
 
     @Column(name = "employee_id")
     private Long employeeId;
-    @Column(name =  "technology_id")
+    @Column(name = "technology_id")
     private Long technologyId;
 
-    public  EmployeeTechnologyKey(Long employeeId,Long technologyId){
+    public EmployeeTechnologyKey(Long employeeId, Long technologyId) {
         this.employeeId = employeeId;
         this.technologyId = technologyId;
     }
-    public EmployeeTechnologyKey(){
+
+    public EmployeeTechnologyKey() {
 
     }
 
@@ -32,6 +33,6 @@ public class EmployeeTechnologyKey implements Serializable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getEmployeeId(),getTechnologyId());
+        return Objects.hash(getEmployeeId(), getTechnologyId());
     }
 }

@@ -8,11 +8,12 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 import java.util.Optional;
 
-public interface TechnologyRepository extends JpaRepository<Technologies,Long> {
+public interface TechnologyRepository extends JpaRepository<Technologies, Long> {
     @Override
     List<Technologies> findAll();
 
     List<Technologies> getTechnologyByTechnologyCategory(ETechnologyCategory category);
+
     Optional<Technologies> findById(Long aLong);
 
     @Query("SELECT p.name,count(p.name) FROM ProjectTechnology p JOIN " +

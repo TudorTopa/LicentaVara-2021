@@ -32,24 +32,23 @@ public class Company {
     private String companyName;
 
     @Column(name = "foundationDate")
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date foundationDate;
-
-    @OneToMany(mappedBy = "company",
-               orphanRemoval = true,
-               fetch = FetchType.LAZY)
-    @JsonIgnore
-    private Set<Project>  projects;
 
     @OneToMany(mappedBy = "company",
             orphanRemoval = true,
             fetch = FetchType.LAZY)
     @JsonIgnore
-    private Set<Employee> employees  ;
+    private Set<Project> projects;
+
+    @OneToMany(mappedBy = "company",
+            orphanRemoval = true,
+            fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Employee> employees;
 
 
-
-    public Company(){
+    public Company() {
     }
 
 
@@ -58,7 +57,6 @@ public class Company {
         this.companyName = companyName;
         this.foundationDate = foundationDate;
     }
-
 
 
     public long getCompanyId() {
@@ -84,10 +82,12 @@ public class Company {
     public void setFoundationDate(Date foudnationDate) {
         this.foundationDate = foudnationDate;
     }
+
     @JsonProperty
     public Set<Project> getProjects() {
         return projects;
     }
+
     @JsonIgnore
     public void setProjects(Set<Project> projects) {
         this.projects = projects;

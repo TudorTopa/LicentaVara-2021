@@ -40,7 +40,8 @@ public class EmployeeTechnologies {
         this.employeeTechnologyKey = employeeTechnologyKey;
         this.skillLevel = skillLevel;
     }
-    public EmployeeTechnologies(){
+
+    public EmployeeTechnologies() {
 
     }
 }

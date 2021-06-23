@@ -112,7 +112,7 @@ public class ProjectTechnologyController {
     }
     @GetMapping("/ALGORITHM")
     public ResponseEntity<String> getAlgorithmOutput(){
-        String res = technologyGraph.addNodes();
+        String res = technologyGraph.createGraph();
         return  new ResponseEntity<>(res,HttpStatus.OK);
     }
     @GetMapping("/ALGORITHM/{category}")

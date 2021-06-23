@@ -50,7 +50,7 @@ public class CompanyController {
     public ResponseEntity<Company> createCompany(@RequestBody Company company) {
         try {
             Company _company = companyRepository
-                    .save(new Company(company.getCompanyId(), company.getCompanyName(),company.getFoundationDate()));
+                    .save(new Company(company.getCompanyId(), company.getCompanyName(), company.getFoundationDate()));
             return new ResponseEntity<>(_company, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -66,8 +66,9 @@ public class CompanyController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @GetMapping("/{id}/projects")
-    public ResponseEntity<List<Project>> getCompanyProjects(@PathVariable("id") long id){
+    public ResponseEntity<List<Project>> getCompanyProjects(@PathVariable("id") long id) {
         List<Project> projects = new ArrayList<>();
         companyRepository.findCompanyProjects(id).forEach(projects::add);
         if (projects.isEmpty()) {

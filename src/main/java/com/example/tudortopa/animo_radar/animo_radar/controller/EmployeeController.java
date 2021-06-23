@@ -35,6 +35,7 @@ public class EmployeeController {
         }
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
+
     @PostMapping
     public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee) {
         try {
@@ -48,6 +49,7 @@ public class EmployeeController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteEmployee(@PathVariable("id") long id) {
         try {
@@ -57,6 +59,7 @@ public class EmployeeController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
     @PutMapping("/{id}")
     public ResponseEntity<HttpStatus> updateEmployee(@RequestBody Employee employee, @PathVariable long id) {
 

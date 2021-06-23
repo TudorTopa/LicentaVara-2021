@@ -36,11 +36,11 @@ public class EmployeeProjects {
 
     @NotNull
     @Column(name = "startDate")
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date startDate;
 
     @Column(name = "finishDate")
-    @JsonFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date finishDate;
 
     @Column(name = "isFinished")

@@ -15,7 +15,6 @@ public class ApiError {
     private String message;
 
 
-
     public ApiError(int status, String error) {
         this.status = status;
         this.error = error;

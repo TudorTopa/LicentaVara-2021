@@ -42,15 +42,15 @@ public class Project {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "startDate" )
-    @Temporal( value = TemporalType.TIMESTAMP )
-    @Generated( value = GenerationTime.INSERT )
-    @ColumnDefault( value = "CURRENT_TIMESTAMP" )
+    @Column(name = "startDate")
+    @Temporal(value = TemporalType.TIMESTAMP)
+    @Generated(value = GenerationTime.INSERT)
+    @ColumnDefault(value = "CURRENT_TIMESTAMP")
     private Date startDate;
 
     @JsonIgnore
     @OneToMany(mappedBy = "technologyId.projectId", cascade = CascadeType.ALL,
-            fetch= FetchType.EAGER)
+            fetch = FetchType.EAGER)
     private List<ProjectTechnology> projectTechnology;
 
     @JsonIgnore
