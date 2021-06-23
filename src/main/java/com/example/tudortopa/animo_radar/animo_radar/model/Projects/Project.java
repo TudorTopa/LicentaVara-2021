@@ -4,8 +4,12 @@ package com.example.tudortopa.animo_radar.animo_radar.model.Projects;
 import com.example.tudortopa.animo_radar.animo_radar.model.Company.Company;
 import com.example.tudortopa.animo_radar.animo_radar.model.Employee.EmployeeProjects;
 import com.example.tudortopa.animo_radar.animo_radar.model.Technology.ProjectTechnology;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -18,13 +22,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "Projects")
 public class Project {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long projectId;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
@@ -34,6 +41,12 @@ public class Project {
 
     @Column(name = "name")
     private String name;
+
+    @Column(name = "startDate" )
+    @Temporal( value = TemporalType.TIMESTAMP )
+    @Generated( value = GenerationTime.INSERT )
+    @ColumnDefault( value = "CURRENT_TIMESTAMP" )
+    private Date startDate;
 
     @JsonIgnore
     @OneToMany(mappedBy = "technologyId.projectId", cascade = CascadeType.ALL,
@@ -78,5 +91,9 @@ public class Project {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Date getStartDate() {
+        return startDate;
     }
 }

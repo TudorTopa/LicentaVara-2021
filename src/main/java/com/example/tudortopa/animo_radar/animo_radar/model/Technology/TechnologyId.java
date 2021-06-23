@@ -42,4 +42,12 @@ public class TechnologyId implements Serializable {
     public int hashCode() {
         return Objects.hash(getTechnologyId(),getProjectId());
     }
+
+    @Override
+    public String toString() {
+        return "TechnologyId{" +
+                "projectId=" + projectId +
+                ", technologyId=" + technologyId +
+                '}';
+    }
 }

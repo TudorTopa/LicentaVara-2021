@@ -11,4 +11,7 @@ public interface ProjectRepository extends JpaRepository<Project, Long> {
 
     @Query("SELECT p FROM Project p JOIN ProjectTechnology t ON  p.projectId = t.technologyId.projectId WHERE t.technologyId.technologyId = ?1")
     List<Project> findProjectsByTechnologyId(long technologyId);
+
+    @Query("SELECT p.projectId FROM Project p")
+    List<Long> getProjectIds();
 }

@@ -3,7 +3,7 @@ package com.example.tudortopa.animo_radar.animo_radar.controller;
 import com.example.tudortopa.animo_radar.animo_radar.model.Company.Company;
 import com.example.tudortopa.animo_radar.animo_radar.model.Technology.ETechnologyCategory;
 import com.example.tudortopa.animo_radar.animo_radar.model.Technology.ProjectTechnology;
-import com.example.tudortopa.animo_radar.animo_radar.model.Technology.Technology;
+import com.example.tudortopa.animo_radar.animo_radar.model.Technology.Technologies;
 import com.example.tudortopa.animo_radar.animo_radar.repository.TechnologyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,10 +26,10 @@ public class TechnologyController {
     TechnologyRepository technologyRepository;
 
     @PostMapping
-    public ResponseEntity<Technology> createProject(@RequestBody Technology technology) {
+    public ResponseEntity<Technologies> createProject(@RequestBody Technologies technology) {
         try {
-            Technology _technology = technologyRepository
-                    .save(new Technology(technology.getTechnologyName(),technology.getTechnologyCategory()));
+            Technologies _technology = technologyRepository
+                    .save(new Technologies(technology.getTechnologyName(),technology.getTechnologyCategory()));
             return new ResponseEntity<>(_technology, HttpStatus.CREATED);
         } catch (Exception e) {
             e.printStackTrace();
@@ -37,8 +37,8 @@ public class TechnologyController {
         }
     }
     @GetMapping
-    public ResponseEntity<List<Technology>> getAllTechnologies(){
-        List<Technology> technologies = new ArrayList<>();
+    public ResponseEntity<List<Technologies>> getAllTechnologies(){
+        List<Technologies> technologies = new ArrayList<>();
         technologyRepository.findAll().forEach(technologies::add);
         if (technologies.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -46,8 +46,8 @@ public class TechnologyController {
         return new ResponseEntity<>(technologies, HttpStatus.OK);
     }
     @GetMapping("/category/{category}")
-    public ResponseEntity<List<Technology>> getAllTechnologiesByCategory(@PathVariable("category") ETechnologyCategory category){
-        List<Technology> technologies = new ArrayList<>();
+    public ResponseEntity<List<Technologies>> getAllTechnologiesByCategory(@PathVariable("category") ETechnologyCategory category){
+        List<Technologies> technologies = new ArrayList<>();
         technologyRepository.getTechnologyByTechnologyCategory(category).forEach(technologies::add);
         if (technologies.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -55,12 +55,22 @@ public class TechnologyController {
         return new ResponseEntity<>(technologies, HttpStatus.OK);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Technology> getById(@PathVariable("id") Long technologyId){
-        Technology technology = technologyRepository.findById(technologyId).get();
+    public ResponseEntity<Technologies> getById(@PathVariable("id") Long technologyId){
+        Technologies technology = technologyRepository.findById(technologyId).get();
         if (technology.equals(null)) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(technology, HttpStatus.OK);
     }
+    @GetMapping("/categoryCount/{category}")
+        public ResponseEntity<List<Object>> getAllTechnologyCountByCategory(@PathVariable("category") ETechnologyCategory category){
+        List<Object> technologies = new ArrayList<>();
+        technologyRepository.getTechnologiesCountByCategory(category).forEach(technologies::add);
+        if (technologies.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(technologies, HttpStatus.OK);
+    }
+
 }
 

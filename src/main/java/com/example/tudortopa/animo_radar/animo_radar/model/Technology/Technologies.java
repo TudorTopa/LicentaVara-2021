@@ -1,5 +1,7 @@
 package com.example.tudortopa.animo_radar.animo_radar.model.Technology;
 
+import com.example.tudortopa.animo_radar.animo_radar.model.Employee.EmployeeTechnologies;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,22 +17,26 @@ import java.util.List;
 
 @Entity
 @Table(name = "Technologies")
-public class Technology {
+public class Technologies {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long technologyId;
 
     @Column(name = "technologyName", unique = true, nullable = false)
     private String technologyName;
 
     @Enumerated(EnumType.STRING)
-    @Column(length = 64,columnDefinition="VARCHAR(20) default 'HOLD'")
+    @Column(length = 64,columnDefinition="VARCHAR(30) default 'LANGUAGE'")
     private ETechnologyCategory technologyCategory;
 
     @OneToMany(mappedBy = "technologyId.technologyId", cascade = CascadeType.ALL,
             fetch= FetchType.EAGER)
     private List<ProjectTechnology> projectTechnology;
+
+    @OneToMany(mappedBy = "employeeTechnologyKey.technologyId", cascade = CascadeType.ALL)
+    private List<EmployeeTechnologies> employeeTechnologies;
+
 
     public long getTechnologyId() {
         return technologyId;
@@ -48,11 +54,11 @@ public class Technology {
         return projectTechnology;
     }
 
-    public Technology( String technologyName, ETechnologyCategory technologyCategory) {
+    public Technologies(String technologyName, ETechnologyCategory technologyCategory) {
         this.technologyName = technologyName;
         this.technologyCategory = technologyCategory;
     }
-    public Technology(){
+    public Technologies(){
 
     }
 }

@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.LongUnaryOperator;
 
 
 @RestController
@@ -74,4 +75,5 @@ public class CompanyController {
         }
         return new ResponseEntity<>(projects, HttpStatus.OK);
     }
+
 }

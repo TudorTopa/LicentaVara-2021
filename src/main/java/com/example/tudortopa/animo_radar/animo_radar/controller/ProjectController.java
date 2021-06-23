@@ -55,5 +55,14 @@ public class ProjectController {
         }
         return new ResponseEntity<>(projects, HttpStatus.OK);
     }
+    @GetMapping("/ids")
+    public ResponseEntity<List<Long>> getProjectIds(){
+        List<Long> projectIds = new ArrayList<>();
+        projectRepository.getProjectIds().forEach(projectIds::add);
+        if(projectIds.isEmpty()) {
+            return  new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(projectIds,HttpStatus.OK);
+    }
 
 }

@@ -14,7 +14,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 import java.util.Date;
+
 import java.util.Set;
 
 
@@ -23,7 +25,7 @@ import java.util.Set;
 public class Company {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long companyId;
 
     @Column(name = "companyName", unique = true, nullable = false)
@@ -45,6 +47,8 @@ public class Company {
     @JsonIgnore
     private Set<Employee> employees  ;
 
+
+
     public Company(){
     }
 
@@ -54,6 +58,8 @@ public class Company {
         this.companyName = companyName;
         this.foundationDate = foundationDate;
     }
+
+
 
     public long getCompanyId() {
         return companyId;

@@ -43,4 +43,13 @@ public class ProjectTechnology {
     public ProjectTechnology(){
 
     }
+
+    @Override
+    public String toString() {
+        return "ProjectTechnology{" +
+                "technologyId=" + technologyId +
+                ", name='" + name + '\'' +
+                ", state=" + state +
+                '}';
+    }
 }
