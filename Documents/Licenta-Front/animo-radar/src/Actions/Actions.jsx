@@ -1,4 +1,4 @@
-import {API_ENDPOINT, CORRECT_POST, POST}  from "./Utils";
+import {POST}  from "./Utils";
 
   
 const userLogin = (user) => {
@@ -23,14 +23,6 @@ const userLogin = (user) => {
          }) 
    };
 
-  // export const setNotification = (options) => {
-  //   return {
-  //     type: "SET_NOTIFICATION",
-  //     payload: {
-  //       options: options,
-  //     },
-  //   };
-  // };
 
   export const resetNotificationTrigger = () => {
     return {

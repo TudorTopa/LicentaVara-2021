@@ -10,14 +10,21 @@ export const isLoggedIn = () => {
     );
   };
   export const POST = (url, data, crossDomain = true) => {
-    console.log("Insde axios post")
     return axios.post(url, data, {
       crossDomain,
     });
   };
-  export const AUTHORIZED_GET = (url, crossDomain = true) => {
-    return axios.get(url, {
+  export const AUTHORIZED_GET =  (url, crossDomain = true) => {
+    return  axios.get(url, {
+      headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
+      crossDomain,
+    }).then((res) => {return res});
+  };
+  export const AUTHORIZED_POST =  (url, data, crossDomain = true) => {
+    return  axios.post(url, data ,{
       headers: { Authorization: `Bearer ${localStorage.getItem("jwt")}` },
       crossDomain,
     });
   };
+
+  export default {isLoggedIn}

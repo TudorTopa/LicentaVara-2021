@@ -29,14 +29,11 @@ export class Register extends React.Component {
           };
     
           submitRegisterData = () => {
-       // alert('Login submited ' + this.state);
-        console.log(this.state)
         userRegistration({
            username: this.state.username,
            email:this.state.email,
            password: this.state.password,
          })
-         console.log("Post made")
     
     }
 

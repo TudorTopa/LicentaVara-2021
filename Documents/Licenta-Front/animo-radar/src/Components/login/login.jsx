@@ -41,7 +41,6 @@ export class Login extends React.Component {
     
         submitLoginData = () => {
         if(this.isFormValid){
-        console.log(this.state)
          userLogin({
             username: this.state.username,
             password: this.state.password,

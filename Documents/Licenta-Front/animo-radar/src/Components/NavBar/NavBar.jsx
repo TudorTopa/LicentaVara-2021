@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState }  from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
@@ -6,7 +6,7 @@ import { withRouter } from "react-router-dom";
 
 import {
   NavItem,
-  NavLink,
+  NavLink
 } from "reactstrap";
 import history from "../../Routes/history";
 import "./navbar.scss";
@@ -15,6 +15,9 @@ import "./navbar.scss";
 const PAGES_WITHOUT_NAVBAR = ["/auth"];
 
 class NavBar extends React.Component {
+
+ 
+
   constructor(props) {
     super(props);
 
@@ -43,10 +46,11 @@ class NavBar extends React.Component {
   }
 
   goTo = (page) => {
-    console.log("NavBar Click")
     history.push(page);
   };
 
+
+  
   render() {
     if (
       PAGES_WITHOUT_NAVBAR.filter(
@@ -56,7 +60,13 @@ class NavBar extends React.Component {
       return null;
     }
 
+
+    
+
     return (
+
+
+      
       <Fragment>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <a className="navbar-brand" href="#">HomePage</a>
@@ -70,21 +80,30 @@ class NavBar extends React.Component {
           <NavLink onClick={() => this.goTo("/companies")}>Companies</NavLink> 
           </NavItem>
           </li>
-          <li className="nav-item">
+          <li className="nav-item active">
           <NavItem />
           <NavLink onClick={() => this.goTo("/projects")}>Projects</NavLink>
           </li>
-          <li className="nav-item">
+          <li className="nav-item active">
           <NavItem />
-          <NavLink onClick={() => this.goTo("/technology")}>Technology Radar</NavLink>
+          <NavItem>
+          <NavLink onClick={() => this.goTo("/technology")}>Company Technologies</NavLink>
+          </NavItem>
+          </li>
+          <li className="nav-item active">
+          <NavItem />
+          <NavItem>
+          <NavLink onClick={() => this.goTo("/technologyMarket")}>Technology Market</NavLink>
+          </NavItem>
           </li>
         </ul>
       </div>
     </nav>
     </Fragment>
     
-    
+      
     );
+    
   }
 }
 
